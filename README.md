@@ -71,15 +71,15 @@ EOF
 4. Docker mysql 컨테이너를 생성합니다.
 ```bash
 # Master DB
-docker run -i -t --name master-db -h master-db --net mybridge --net-alias=master-db -p 3307:3306 
--v $HOME/mysql/master/conf:/etc/mysql/conf.d 
--v $HOME/mysql/master/log:/var/log/mysql 
+docker run -i -t --name master-db -h master-db --net mybridge --net-alias=master-db -p 3306:3306 \
+-v $HOME/mysql/master/conf:/etc/mysql/conf.d \
+-v $HOME/mysql/master/log:/var/log/mysql \
 -v $HOME/mysql/master/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD="test" -d mysql:latest
 
 # Slave DB
-docker run -i -t --name slave-db -h slave-db --net mybridge --net-alias=slave-db -p 3307:3306 
--v $HOME/mysql/slave/conf:/etc/mysql/conf.d 
--v $HOME/mysql/slave/log:/var/log/mysql 
+docker run -i -t --name slave-db -h slave-db --net mybridge --net-alias=slave-db -p 3307:3306 \
+-v $HOME/mysql/slave/conf:/etc/mysql/conf.d \
+-v $HOME/mysql/slave/log:/var/log/mysql \
 -v $HOME/mysql/slave/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD="test" -d mysql:latest
 ```
 
@@ -96,6 +96,8 @@ GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
 7. Slave DB 에서 Master DB Replication 을 위한 설정을 진행합니다.
 ```mysql
 CHANGE MASTER TO MASTER_HOST = 'master-db', MASTER_USER = 'replicator', MASTER_PASSWORD = 'test', MASTER_AUTO_POSITION = 1;
+
+START SLAVE;
 ```
 
 8. Slave DB 에서 정상적으로 Master DB 와 연결되었는지 확인합니다.
