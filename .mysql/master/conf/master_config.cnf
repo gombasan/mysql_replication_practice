@@ -1,11 +1,18 @@
 [mysqld]
+#바이너리 로그는 복제와 트랜잭션 복구에 필요하며, 로그 파일에 모든 데이터 변경을 기록한다.
 log_bin                     = mysql-bin
+#binlog_format은 ROW로 설정한다. 이 설정은 테이블의 변경 내용을 로그 파일에 기록한다.
 binlog_format               = ROW
+#gtid_mode은 ON으로 설정한다. 이 설정은 GTID를 사용한다는 것을 의미한다. GTID는 트랜잭션을 고유하게 식별하는 글로벌 트랜잭션 ID이다.
 gtid_mode                   = ON
 enforce-gtid-consistency    = true
+# MySQL 서버를 고유하게 식별하는데 사용한다. 중복이 되면 안된다.
 server-id                   = 1
+# Slave 서버가 복제된 트랜잭션을 기록한다.
 log_slave_updates
+# MySQL 데이터 파일이 저장되는 디렉토리를 지정한다.
 datadir                     = /var/lib/mysql
+# MySQL 소켓 파일의 위치를 지정한다.
 socket                      = /var/lib/mysql/mysql.sock
 
 symbolic-links              = 0
