@@ -1,0 +1,21 @@
+[mysqld]
+log_bin                     = mysql-bin
+binlog_format               = ROW
+gtid_mode                   = ON
+enforce-gtid-consistency    = true
+server-id                   = 1
+log_slave_updates
+datadir                     = /var/lib/mysql
+socket                      = /var/lib/mysql/mysql.sock
+
+symbolic-links              = 0
+
+log-error                   = /var/log/mysql/mysqld.log
+pid-file                    = /var/run/mysqld/mysqld.pid
+
+report_host                 = master-db
+
+[mysqld_safe]
+pid-file                    = /var/run/mysqld/mysqld.pid
+socket                      = /var/lib/mysql/mysql.sock
+nice                        = 0
