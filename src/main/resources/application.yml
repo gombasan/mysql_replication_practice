@@ -7,3 +7,17 @@ datasource:
     slave1:
       url: jdbc:mysql://localhost:3307/mysql
       name: slave-db
+
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show_sql: false
+        generate-ddl: false
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
