@@ -8,6 +8,9 @@ import java.util.Map;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 
 	private String slaveServerName;
@@ -15,8 +18,10 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 	public Object determineCurrentLookupKey() {
 		boolean isReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
 		if(isReadOnly) {
+			log.info("connection = {}", slaveServerName);
 			return slaveServerName;
 		} else {
+			log.info("connection = master");
 			return "master";
 		}
 	}
