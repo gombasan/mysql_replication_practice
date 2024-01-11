@@ -1,11 +1,11 @@
 datasource:
-  url: jdbc:mysql://localhost:3306/mysql
+  url: jdbc:mysql://localhost:3306/simple
   username: root
   password: test
 
   slave:
     slave1:
-      url: jdbc:mysql://localhost:3307/mysql
+      url: jdbc:mysql://localhost:3307/simple
       name: slave-db
 
 
